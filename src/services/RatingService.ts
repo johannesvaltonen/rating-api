@@ -40,29 +40,18 @@ export default class RatingService
 
     public updateRatings(currentRatings: MatchRatings): MatchRatings
     {
-        try
-        {
-            let winner = this.createRankingPlayer(currentRatings.winnerRating);
-            let loser = this.createRankingPlayer(currentRatings.loserRating);
+        let winner = this.createRankingPlayer(currentRatings.winnerRating);
+        let loser = this.createRankingPlayer(currentRatings.loserRating);
 
-            var matches = [
-                [winner, loser, 1]
-            ];
+        var matches = [
+            [winner, loser, 1]
+        ];
 
-            this.ranking.updateRatings(matches);
+        this.ranking.updateRatings(matches);
 
-            return {
-                winnerRating: this.getUpdatedPlayerRating(winner),
-                loserRating: this.getUpdatedPlayerRating(loser)
-            }
-        }
-        catch (e)
-        {
-            // if (e instanceof EntityNotFoundError)
-            // {
-            //     throw new RatingCalculationException("Calculation failed.");
-            // }
-            throw e;
+        return {
+            winnerRating: this.getUpdatedPlayerRating(winner),
+            loserRating: this.getUpdatedPlayerRating(loser)
         }
     }
 
