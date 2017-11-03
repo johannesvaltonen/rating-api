@@ -1,6 +1,7 @@
 import { IRouterContext } from "koa-router";
 import { Inject, Singleton } from "typescript-ioc";
-import Rating from "../model/Rating";
+import MatchRatings from "../model/MatchRatings";
+import PlayerRating from "../model/PlayerRating";
 import RatingService from "../services/RatingService"
 
 @Singleton
@@ -8,12 +9,25 @@ export default class RatingController
 {
     constructor(@Inject private ratingService: RatingService) { }
 
-    public async updateRatings(ctx: IRouterContext)
+    public getDefaultRating(ctx: IRouterContext)
     {
         try
         {
-            const rating: Rating = ctx.request.body;
-            const result: Rating = await this.ratingService.updateRatings(rating);
+            const result: PlayerRating = this.ratingService.getDefaultPlayerRating();
+            ctx.body = result;
+        }
+        catch (e)
+        {
+            ctx.throw(400, e.message);
+        }
+    }
+
+    public updateRatings(ctx: IRouterContext)
+    {
+        try
+        {
+            const rating: MatchRatings = ctx.request.body;
+            const result: MatchRatings = this.ratingService.updateRatings(rating);
             ctx.body = result;
         }
         catch (e)

@@ -14,7 +14,8 @@ export default class RatingRoutes extends IRoutes
     protected getRoutes(): Route[]
     {
         return [
-            Route.create("/updateratings", "post", (ctx: IRouterContext) => this.ratingController.updateRatings(ctx))
+            Route.create("/ratings/default", "get", (ctx: IRouterContext) => this.ratingController.getDefaultRating(ctx)),
+            Route.create("/ratings", "post", (ctx: IRouterContext) => this.ratingController.updateRatings(ctx))
         ];
     }
 }
